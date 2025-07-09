@@ -1,5 +1,6 @@
-use rand::distributions::Standard;
+use rand::distributions::{Distribution, Standard};
 use rand::prelude::*;
+use rand::seq::SliceRandom;
 use crate::game_color::GameColor;
 
 
@@ -27,6 +28,6 @@ pub enum PieceType {
 impl Distribution<PieceType> for Standard {
     fn sample<R: Rng + ?Sized>(&self, rng: &mut R) -> PieceType {
         use self::PieceType::*;
-        rng.choose(&[L, J, S, Z, T, I, O]).unwrap().clone()
+        [L, J, S, Z, T, I, O].choose(rng).unwrap().clone()
     }
 }

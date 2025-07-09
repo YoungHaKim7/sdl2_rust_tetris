@@ -16,7 +16,7 @@ pub struct Piece {
 impl Piece {
     pub fn random() -> Self {
         let mut p = Piece::from(random::<PieceType>());
-        p.x  = thread_rng().gen_range(0, NUM_BLOCKS_X - 2) as isize;
+        p.x  = thread_rng().gen_range(0..NUM_BLOCKS_X - 2) as isize;
         p.y = -1;
         p
     }
