@@ -1,8 +1,8 @@
+use crate::constants::{NUM_BLOCKS_X, NUM_BLOCKS_Y};
 use crate::game_color::GameColor;
+use crate::others::{GameMap, PieceMatrix, PieceType, Presence};
+use rand::{random, random_range};
 use std::default::Default;
-use crate::others::{GameMap, PieceMatrix, Presence, PieceType};
-use crate::constants::{NUM_BLOCKS_Y,NUM_BLOCKS_X};
-use rand::{random, thread_rng, Rng};
 
 #[derive(Default, Copy, Clone)]
 pub struct Piece {
@@ -16,7 +16,7 @@ pub struct Piece {
 impl Piece {
     pub fn random() -> Self {
         let mut p = Piece::from(random::<PieceType>());
-        p.x  = thread_rng().gen_range(0..NUM_BLOCKS_X - 2) as isize;
+        p.x = random_range(0..NUM_BLOCKS_X - 2) as isize;
         p.y = -1;
         p
     }
@@ -55,7 +55,13 @@ impl Piece {
         res
     }
 
-    pub fn test_position(&self, game_map: &[Vec<Presence>], state: usize, x: isize, y: isize) -> bool {
+    pub fn test_position(
+        &self,
+        game_map: &[Vec<Presence>],
+        state: usize,
+        x: isize,
+        y: isize,
+    ) -> bool {
         let state_m = self.get_block_matrix(state);
 
         for mx in 0..4isize {
@@ -64,10 +70,11 @@ impl Piece {
                     if x + mx < 0 || y + my < 0 {
                         return y < 0;
                     }
-                    if x + mx >= NUM_BLOCKS_X as isize ||
-                        y + my >= NUM_BLOCKS_Y as isize ||
-                        game_map[(y + my) as usize][(x + mx) as usize] != Presence::No {
-                            return false;
+                    if x + mx >= NUM_BLOCKS_X as isize
+                        || y + my >= NUM_BLOCKS_Y as isize
+                        || game_map[(y + my) as usize][(x + mx) as usize] != Presence::No
+                    {
+                        return false;
                     }
                 }
             }
@@ -92,22 +99,29 @@ impl Piece {
 
     #[allow(dead_code)]
     pub fn get_filled_region(&self, matrix: PieceMatrix) -> (usize, usize, usize, usize) {
-        let (mut min_x, mut min_y, mut max_x, mut max_y) = (4,4,0,0);
+        let (mut min_x, mut min_y, mut max_x, mut max_y) = (4, 4, 0, 0);
 
         for dx in 0..4 {
             for dy in 0..4 {
                 let cell = matrix[dy][dx];
                 if cell != Presence::No {
-                    if dx < min_x { min_x = dx }
-                    if dy < min_y { min_y = dy }
-                    if dx > max_x { max_x = dx }
-                    if dy > max_y { max_y = dy }
+                    if dx < min_x {
+                        min_x = dx
+                    }
+                    if dy < min_y {
+                        min_y = dy
+                    }
+                    if dx > max_x {
+                        max_x = dx
+                    }
+                    if dy > max_y {
+                        max_y = dy
+                    }
                 }
             }
         }
         (min_x, max_x + 1, min_y, max_y + 1)
     }
-
 }
 
 impl From<PieceType> for Piece {
