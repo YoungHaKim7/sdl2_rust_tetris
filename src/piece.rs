@@ -1,7 +1,9 @@
 use crate::constants::{NUM_BLOCKS_X, NUM_BLOCKS_Y};
 use crate::game_color::GameColor;
 use crate::others::{GameMap, PieceMatrix, PieceType, Presence};
+
 use rand::{random, random_range};
+
 use std::default::Default;
 
 #[derive(Default, Copy, Clone)]

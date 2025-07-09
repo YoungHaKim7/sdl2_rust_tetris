@@ -1,7 +1,9 @@
-use sdl2::Sdl;
-use sdl2::rect::Rect;
-use sdl2::render::{Canvas, Texture, TextureCreator};
-use sdl2::video::{Window, WindowContext};
+use sdl2::{
+    Sdl,
+    rect::Rect,
+    render::{Canvas, Texture, TextureCreator},
+    video::{Window, WindowContext},
+};
 
 use crate::constants::*;
 use crate::game::GameMap;

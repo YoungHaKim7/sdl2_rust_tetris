@@ -7,12 +7,16 @@ mod others;
 mod piece;
 mod renderer;
 
-use sdl2::EventPump;
-use sdl2::render::{Canvas, Texture};
-use sdl2::video::Window;
+use sdl2::{
+    EventPump,
+    render::{Canvas, Texture},
+    video::Window,
+};
 
-use std::thread::sleep;
-use std::time::{Duration, Instant};
+use std::{
+    thread::sleep,
+    time::{Duration, Instant},
+};
 
 use crate::constants::*;
 use crate::game::Game;

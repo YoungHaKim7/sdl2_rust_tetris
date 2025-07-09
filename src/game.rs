@@ -1,6 +1,7 @@
 use crate::constants::*;
 use crate::others::{PieceType, Presence};
 use crate::piece::Piece;
+
 use rand::random;
 
 pub type GameMap = Vec<Vec<Presence>>;
