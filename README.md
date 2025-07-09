@@ -2,6 +2,14 @@
 
 - https://github.com/flippingbitss/rust-tetris
 
+# run
+
+- debug디버깅 테스트 해보기
+
+```bash
+$ RUST_LOG=debug cargo r --release
+```
+
 <hr />
 
 # rust-tetris
