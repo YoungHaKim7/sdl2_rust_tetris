@@ -14,6 +14,7 @@ use sdl2::{
 };
 
 use std::{
+    error::Error,
     thread::sleep,
     time::{Duration, Instant},
 };
@@ -110,7 +111,7 @@ fn render_scene(mut canvas: &mut Canvas<Window>, textures: &[Texture; 9], game: 
 }
 
 // initialize sdl context and canvas
-fn main() {
+fn main() -> Result<(), Box<dyn Error>> {
     env_logger::init(); // Log to stderr (if you run with `RUST_LOG=debug`).
 
     let (sdl_ctx, mut canvas) = create_window();
@@ -164,4 +165,5 @@ fn main() {
             break;
         }
     }
+    Ok(())
 }
