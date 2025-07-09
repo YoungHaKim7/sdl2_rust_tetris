@@ -2,6 +2,14 @@
 
 - https://github.com/flippingbitss/rust-tetris
 
+<hr />
+
+# 게임이 중간에 원인없이 그냥 꺼짐...
+- sdl2 어렵다. ㅠㅠ
+- 디버깅이 역시 어려워.. 더러운 C언어.. 랩퍼로 땡기니 .... 디버깅이 안되네 --
+
+<hr />
+
 # run
 
 - debug디버깅 테스트 해보기
