@@ -13,4 +13,3 @@ pub const HEIGHT: u32 = NUM_BLOCKS_Y as u32 * TEXTURE_SIZE; // 860;
 pub const NUM_LEVELS: usize = 10;
 pub const LEVEL_TIMES: [usize; NUM_LEVELS] = [1000, 850, 700, 600, 500, 400, 300, 250, 221, 190];
 pub const LEVEL_LINES: [usize; NUM_LEVELS] = [20, 40, 60, 80, 100, 120, 140, 160, 180, 200];
-

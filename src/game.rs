@@ -1,6 +1,6 @@
-use crate::piece::Piece;
 use crate::constants::*;
-use crate::others::{Presence,PieceType};
+use crate::others::{PieceType, Presence};
+use crate::piece::Piece;
 use rand::random;
 
 pub type GameMap = Vec<Vec<Presence>>;
@@ -11,7 +11,7 @@ pub struct Game {
     pub lines_cleared: usize,
     pub current_level: usize,
     pub map: Vec<Vec<Presence>>,
-    pub quit: bool
+    pub quit: bool,
 }
 
 impl Game {
@@ -22,7 +22,7 @@ impl Game {
             lines_cleared: 0,
             current_level: 0,
             map: vec![vec![Presence::No; NUM_BLOCKS_X]; NUM_BLOCKS_Y],
-            quit: false
+            quit: false,
         }
     }
 

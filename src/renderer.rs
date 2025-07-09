@@ -1,16 +1,20 @@
+use sdl2::Sdl;
 use sdl2::rect::Rect;
 use sdl2::render::{Canvas, Texture, TextureCreator};
 use sdl2::video::{Window, WindowContext};
-use sdl2::Sdl;
 
 use crate::constants::*;
-use crate::others::{Presence};
-use crate::game_color::GameColor;
 use crate::game::GameMap;
+use crate::game_color::GameColor;
+use crate::others::Presence;
 use crate::piece::Piece;
 
-
-pub fn draw_piece(canvas: &mut Canvas<Window>, textures: &[Texture; 9], piece: &Piece, ghost_piece: &Piece) {
+pub fn draw_piece(
+    canvas: &mut Canvas<Window>,
+    textures: &[Texture; 9],
+    piece: &Piece,
+    ghost_piece: &Piece,
+) {
     let fill_tex = &textures[piece.color as usize];
     let border_tex = &textures[GameColor::Gray as usize];
 
@@ -18,12 +22,11 @@ pub fn draw_piece(canvas: &mut Canvas<Window>, textures: &[Texture; 9], piece: &
     render_piece(canvas, border_tex, fill_tex, piece);
 }
 
-
 pub fn draw_map(canvas: &mut Canvas<Window>, textures: &[Texture; 9], game_map: &GameMap) {
     let border_tex = &textures[GameColor::Gray as usize];
 
     for row in 0..NUM_BLOCKS_Y {
-        for col in 0..NUM_BLOCKS_X  {
+        for col in 0..NUM_BLOCKS_X {
             if let Presence::Yes(color) = game_map[row][col] {
                 let fill_tex = &textures[color as usize];
                 let x_offset = col as i32 * TEXTURE_SIZE as i32;
@@ -35,11 +38,10 @@ pub fn draw_map(canvas: &mut Canvas<Window>, textures: &[Texture; 9], game_map: 
     }
 }
 
-
 pub fn create_texture_rect<'a>(
     canvas: &mut Canvas<Window>,
     texture_creator: &'a TextureCreator<WindowContext>,
-    texture_color: GameColor
+    texture_color: GameColor,
 ) -> Option<Texture<'a>> {
     let result = texture_creator.create_texture_target(None, TEXTURE_SIZE, TEXTURE_SIZE);
 
@@ -81,29 +83,41 @@ pub fn create_window() -> (Sdl, Canvas<Window>) {
     (sdl_context, canvas)
 }
 
+fn render_tile(
+    canvas: &mut Canvas<Window>,
+    border_tex: &Texture,
+    block_tex: &Texture,
+    x_offset: i32,
+    y_offset: i32,
+) {
+    canvas
+        .copy(
+            &border_tex,
+            None,
+            Rect::new(x_offset, y_offset, TEXTURE_SIZE, TEXTURE_SIZE),
+        )
+        .unwrap();
 
-
-fn render_tile(canvas: &mut Canvas<Window>, border_tex: &Texture, block_tex: &Texture, x_offset: i32, y_offset: i32) {
-    canvas.copy(
-        &border_tex,
-        None,
-        Rect::new(x_offset, y_offset, TEXTURE_SIZE, TEXTURE_SIZE),
-    ).unwrap();
-
-    canvas.copy(
-        &block_tex,
-        None,
-        Rect::new(
-            x_offset + BORDER_WIDTH as i32,
-            y_offset + BORDER_WIDTH as i32,
-            TEXTURE_SIZE_INNER,
-            TEXTURE_SIZE_INNER,
-        ),
-    ).unwrap();
+    canvas
+        .copy(
+            &block_tex,
+            None,
+            Rect::new(
+                x_offset + BORDER_WIDTH as i32,
+                y_offset + BORDER_WIDTH as i32,
+                TEXTURE_SIZE_INNER,
+                TEXTURE_SIZE_INNER,
+            ),
+        )
+        .unwrap();
 }
 
-
-fn render_piece(canvas: &mut Canvas<Window>, border_tex: &Texture, block_tex: &Texture, piece: &Piece) -> () {
+fn render_piece(
+    canvas: &mut Canvas<Window>,
+    border_tex: &Texture,
+    block_tex: &Texture,
+    piece: &Piece,
+) -> () {
     let x = piece.x;
     let y = piece.y;
     let mat = piece.get_block_matrix(piece.current_state);

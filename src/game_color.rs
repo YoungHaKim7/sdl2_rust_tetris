@@ -11,7 +11,7 @@ pub enum GameColor {
     Orange,
     Purple,
     Gray,
-    Pink
+    Pink,
 }
 
 impl Default for GameColor {
